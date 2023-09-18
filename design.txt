@@ -1,3 +1,14 @@
 An inventory system for your home
 (eventual integration with a recipe finder / assembler)
+will read from a file for name and amounts of items (psql database later)
+command line tool to update item amounts / get information
+	inv [item] [+/-x]	item: new amount
+
+	inv [item] 		item: amount
+				used in: recipe name
+
+
+Run:
+opens / creates csv file
+enters command switch structure
 
