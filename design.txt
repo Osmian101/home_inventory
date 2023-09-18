@@ -1,0 +1,3 @@
+An inventory system for your home
+(eventual integration with a recipe finder / assembler)
+
