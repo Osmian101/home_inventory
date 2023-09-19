@@ -2,6 +2,12 @@
 #include <fstream>
 using namespace std;
 
+struct Item
+{
+	string name;
+	int amount;
+};
+
 // setup argv
 int main()
 {
