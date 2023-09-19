@@ -1,29 +1,37 @@
 #include <iostream>
 #include <fstream>
-using namespace std;
+#include <sstream>
+#include <vector>
 
 struct Item
 {
-	string name;
-	int amount;
+	std::string name;
+	int amount;	// TODO: get int working
 };
 
 // setup argv
 int main()
 {
-	string file_path = "inventory.csv";
-	ifstream inventory_file;
-	inventory_file.open(file_path);
-	if (inventory_file.is_open())
+	std::vector<Item> inventory;
+	std::string file_path = "inventory.csv";
+	std::ifstream file_in;
+	file_in.open(file_path);
+	if (file_in.is_open())
 	{
-		// read data char by char, split data on comma, new entry by line
-		// replace cout with item struct
-		for (string line; getline(inventory_file, line, ',');)
+		// TODO: this for every line in the file (currently wrong)
+		for (std::string line; getline(file_in, line, ',');)
 		{
-			cout << line << endl;
+			Item temp;
+			file_in >> temp.name >> temp.amount;
+			inventory.push_back(temp);	
 		}
 	}
-	inventory_file.close();
+	file_in.close();
+	
+	// TODO: pretty print for struct data
+	std::cout << inventory[0].name << std::endl;
+	std::cout << inventory[0].amount << std::endl;
+
 	return 0;
 	// switch on second arg
 }
