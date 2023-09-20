@@ -11,7 +11,7 @@ struct Item
 
 // setup argv
 int main()
-{
+{	// TODO: break into load_from_file()
 	std::vector<Item> inventory;
 	std::string file_path = "inventory.csv";
 	std::ifstream file_in;
@@ -19,7 +19,7 @@ int main()
 	int num_lines = 0;
 	if (file_in.is_open())
 	{
-		// TODO: this for every line in the file (currently once)
+		// count number of lines in the file
 		for (std::string line; std::getline(file_in, line);)
 		{
 			num_lines++;
@@ -27,7 +27,7 @@ int main()
 		int i = 0;
 		file_in.close();	// close and reopen the file to reset the reader position (TODO: functions for this?)
 		file_in.open(file_path);
-		while (i <= num_lines)
+		while (i < num_lines)
 		{
 			Item temp;
 			file_in >> temp.name >> temp.amount;
@@ -36,13 +36,25 @@ int main()
 		}
 	}
 	file_in.close();
+
+	// TODO: break out into save_to_file()
+	std::ofstream file_out;
+	file_out.open(file_path);
+	if (file_out.is_open())
+	{
+		for (Item item : inventory)
+		{
+			 file_out << item.name << " " << item.amount << std::endl;
+		}
+		file_out.close();
+	}
 	
 	// TODO: pretty print for struct data
 	std::cout << "WHOLE STRUCT" << std::endl;
-	for (int i = 0; i < 3; i++)
+	for (Item item : inventory)
 	{
-		std::cout << inventory[i].name << std::endl;
-		std::cout << inventory[i].amount << std::endl;
+		std::cout << item.name << std::endl;
+		std::cout << item.amount << std::endl;
 	}
 	return 0;
 	// switch on second arg
