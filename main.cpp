@@ -9,9 +9,17 @@ struct Item
 	int amount;	
 };
 
-// setup argv
-int main()
-{	// TODO: break into load_from_file()
+int main(int argc, char** argv)
+{	
+	// TODO: set up arg handling
+//	std::cout << argc << std::endl;
+//	for (int i = 0; i < argc; i++)
+//	{
+//		std::cout << argv[i] << std::endl;
+//	}
+//	return 0;
+
+	// TODO: break into load_from_file()
 	std::vector<Item> inventory;
 	std::string file_path = "inventory.csv";
 	std::ifstream file_in;
@@ -34,8 +42,8 @@ int main()
 			inventory.push_back(temp);
 			i++;
 		}
+		file_in.close();
 	}
-	file_in.close();
 
 	// TODO: break out into save_to_file()
 	std::ofstream file_out;
