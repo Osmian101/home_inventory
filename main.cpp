@@ -13,11 +13,17 @@ int main(int argc, char** argv)
 {	
 	// TODO: set up arg handling
 //	std::cout << argc << std::endl;
-//	for (int i = 0; i < argc; i++)
-//	{
-//		std::cout << argv[i] << std::endl;
-//	}
+	for (int i = 0; i < argc; i++)
+	{
+		std::cout << argv[i] << std::endl;
+	}
 //	return 0;
+
+	if (argc != 4)
+	{ 
+		std::cerr << "incorrect usage" << std::endl; // TODO: add usage statement
+		return -1;
+	}
 
 	// TODO: break into load_from_file()
 	std::vector<Item> inventory;
@@ -64,6 +70,17 @@ int main(int argc, char** argv)
 		std::cout << item.name << std::endl;
 		std::cout << item.amount << std::endl;
 	}
+	
+	std::cout << "SWITCH STATEMENT" << std::endl;
+	switch (argv[1][0])
+	{
+		case 'a':
+			std::cout << "ADD " << argv[3] << " TO " << argv[2] << std::endl;
+			break;
+		break;
+	}
+	std::cout << "END SWITCH STATEMENT" << std::endl;
 	return 0;
+
 	// switch on second arg
 }
