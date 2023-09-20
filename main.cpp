@@ -11,14 +11,6 @@ struct Item
 
 int main(int argc, char** argv)
 {	
-	// TODO: set up arg handling
-//	std::cout << argc << std::endl;
-	for (int i = 0; i < argc; i++)
-	{
-		std::cout << argv[i] << std::endl;
-	}
-//	return 0;
-
 	if (argc != 4)
 	{ 
 		std::cerr << "incorrect usage" << std::endl; // TODO: add usage statement
@@ -41,6 +33,7 @@ int main(int argc, char** argv)
 		int i = 0;
 		file_in.close();	// close and reopen the file to reset the reader position (TODO: functions for this?)
 		file_in.open(file_path);
+		// read each line into a new Item struct and store it in the inventory vector
 		while (i < num_lines)
 		{
 			Item temp;
@@ -72,15 +65,17 @@ int main(int argc, char** argv)
 	}
 	
 	std::cout << "SWITCH STATEMENT" << std::endl;
+	// determine which mode to enter for this run
 	switch (argv[1][0])
 	{
+		// TODO functions for each mode
 		case 'a':
 			std::cout << "ADD " << argv[3] << " TO " << argv[2] << std::endl;
 			break;
 		break;
+		// TODO: add modes; subtract, add item, remove item, etc.
 	}
 	std::cout << "END SWITCH STATEMENT" << std::endl;
-	return 0;
 
-	// switch on second arg
+	return 0;
 }
