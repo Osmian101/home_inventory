@@ -1,22 +1,12 @@
+#include "main.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <vector>
 
-struct Item
-{
-	std::string name;
-	int amount;	
-};
 
 int main(int argc, char** argv)
 {	
-	if (argc != 4)
-	{ 
-		std::cerr << "incorrect usage" << std::endl; // TODO: add usage statement
-		return -1;
-	}
-
 	// TODO: break into load_from_file()
 	std::vector<Item> inventory;
 	std::string file_path = "inventory.csv";
@@ -43,8 +33,129 @@ int main(int argc, char** argv)
 		}
 		file_in.close();
 	}
+	save(file_path, inventory);
+	// determine which mode to enter for this run
+	switch (argv[1][0])
+	{
+		case 'a':	// add
+			if (argc != 4)
+			{
+				print_usage();
+				return -1;
+			}
+			add(argv[2], atoi(argv[3]));
+			break;
+		case 's':	// subtract
+			if (argc != 4)
+			{ 
+				print_usage();
+				return -1;
+			}
+			subtract(argv[2], atoi(argv[3]));
+			break;
+		case 'd':	// display items
+			if (argc != 2)
+			{ 
+				print_usage();	
+				return -1;
+			}
+			display(inventory);
+			break;
+		case 'r':	// remove item
+			if (argc != 3)
+			{ 
+				print_usage();
+				return -1;
+			}
+			remove(argv[2]);
+			break;
+		case 'w':	// write to file
+			if (argc != 2)
+			{
+				print_usage();
+				return -1;
+			}
+			std::cout << "WRITE TO " << file_path << std::endl;
+			save(file_path, inventory);
+			break;
+		case 'l':	// launch in loop mode
+			if (argc != 2)
+			{
+				print_usage();
+				return -1;
+			}
+			std::cout << "LOOP MODE" << std::endl;
+			while (1)
+			{
+				char* command;
+				std::cin >> command;
+				if (command[0] != 'q')
+				{
+					// TODO: break down command 
+					char mode;
+					switch (mode)
+					{
+						case 'a':
+							add("test", 3);
+							break;
+						case 's':
+							subtract("test", 3);
+							break;
+						case 'd':
+							display(inventory);
+							break;
+						case 'r':	
+							remove("test");
+							break;
+						case 'w':
+							save(file_path, inventory);
+							break;
+						default: 
+							print_usage();
+							break;
+						break;
+					}
+				}
+				else 
+				{
+					//quit();
+					std::cout << "QUIT" << std::endl;
+					return -1;
 
-	// TODO: break out into save_to_file()
+				}
+			}
+		break;
+	}
+	return 0;
+}
+
+void add(char* name, int amount)
+{
+	std::cout << "ADD " << amount << " TO " << name << std::endl;
+}
+
+void subtract(char* name, int amount)
+{
+	std::cout << "SUBTRACT " << amount << " FROM " << name << std::endl;
+}
+
+void display(std::vector<Item> inventory)
+{
+	std::cout << "DISPLAY" << std::endl;
+	for (Item item : inventory)
+	{
+		std::cout << item.name << std::endl;
+		std::cout << item.amount << std::endl;
+	}
+}
+
+void remove(char* name)
+{
+	std::cout << "REMOVE " << name << std::endl;
+}
+
+void save(std::string file_path, std::vector<Item> inventory)
+{
 	std::ofstream file_out;
 	file_out.open(file_path);
 	if (file_out.is_open())
@@ -55,27 +166,9 @@ int main(int argc, char** argv)
 		}
 		file_out.close();
 	}
-	
-	// TODO: pretty print for struct data
-	std::cout << "WHOLE STRUCT" << std::endl;
-	for (Item item : inventory)
-	{
-		std::cout << item.name << std::endl;
-		std::cout << item.amount << std::endl;
-	}
-	
-	std::cout << "SWITCH STATEMENT" << std::endl;
-	// determine which mode to enter for this run
-	switch (argv[1][0])
-	{
-		// TODO functions for each mode
-		case 'a':
-			std::cout << "ADD " << argv[3] << " TO " << argv[2] << std::endl;
-			break;
-		break;
-		// TODO: add modes; subtract, add item, remove item, etc.
-	}
-	std::cout << "END SWITCH STATEMENT" << std::endl;
+}
 
-	return 0;
+void print_usage()
+{
+	std::cerr << "USAGE: inv [a,s,d,r,w,q,h] [optional args]" << std::endl;
 }

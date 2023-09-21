@@ -22,7 +22,8 @@ Run:
 opens / creates csv file
 loads contents into structs
 enters command switch structure
-
+	consider allowing for multiple modes per operation so theyre processed as a list
+save command loads struct list back into file
 
 For database based systems its good practice to keep the same connection to the database open, and pass that around
 
