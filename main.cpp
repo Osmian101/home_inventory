@@ -3,7 +3,7 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
-
+#include <string.h>
 
 int main(int argc, char** argv)
 {	
@@ -87,25 +87,26 @@ int main(int argc, char** argv)
 			std::cout << "LOOP MODE" << std::endl;
 			while (1)
 			{
-				char* command;
+				char command ;
 				std::cin >> command;
-				if (command[0] != 'q')
+				if (command != 'q')
 				{
 					// TODO: break down command 
-					char mode;
-					switch (mode)
+					//char mode;
+					std::string test_string = "test";
+					switch (command)
 					{
 						case 'a':
-							add("test", 3);
+							add(test_string, 3);
 							break;
 						case 's':
-							subtract("test", 3);
+							subtract(test_string, 3);
 							break;
 						case 'd':
 							display(inventory);
 							break;
 						case 'r':	
-							remove("test");
+							remove(test_string);
 							break;
 						case 'w':
 							save(file_path, inventory);
@@ -129,14 +130,16 @@ int main(int argc, char** argv)
 	return 0;
 }
 
-void add(char* name, int amount)
+void add(std::string name, int amount)
 {
 	std::cout << "ADD " << amount << " TO " << name << std::endl;
+	// TODO: implement adding items
 }
 
-void subtract(char* name, int amount)
+void subtract(std::string name, int amount)
 {
 	std::cout << "SUBTRACT " << amount << " FROM " << name << std::endl;
+	// TODO: implement subtracting items
 }
 
 void display(std::vector<Item> inventory)
@@ -149,9 +152,10 @@ void display(std::vector<Item> inventory)
 	}
 }
 
-void remove(char* name)
+void remove(std::string name)
 {
 	std::cout << "REMOVE " << name << std::endl;
+	// TODO: implement removing items
 }
 
 void save(std::string file_path, std::vector<Item> inventory)

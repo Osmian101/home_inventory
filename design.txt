@@ -25,5 +25,9 @@ enters command switch structure
 	consider allowing for multiple modes per operation so theyre processed as a list
 save command loads struct list back into file
 
+Run:
+loads file into struct list
+loops while not receiving the quit command
+
 For database based systems its good practice to keep the same connection to the database open, and pass that around
 

@@ -11,13 +11,13 @@ struct Item
 
 int main(int argc, char** argv);
 
-void add(char* name, int amount);
+void add(std::string name, int amount);
 
-void subtract(char* name, int amount);
+void subtract(std::string name, int amount);
 
 void display(std::vector<Item> inventory);
 
-void remove(char* name);
+void remove(std::string name);
 
 void save(std::string file_path, std::vector<Item> inventory);
 
