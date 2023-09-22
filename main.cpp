@@ -43,7 +43,7 @@ int main(int argc, char** argv)
 				print_usage();
 				return -1;
 			}
-			add(argv[2], atoi(argv[3]));
+			add(inventory, argv[2], atoi(argv[3]));
 			break;
 		case 's':	// subtract
 			if (argc != 4)
@@ -51,7 +51,7 @@ int main(int argc, char** argv)
 				print_usage();
 				return -1;
 			}
-			subtract(argv[2], atoi(argv[3]));
+			subtract(inventory, argv[2], atoi(argv[3]));
 			break;
 		case 'd':	// display items
 			if (argc != 2)
@@ -67,7 +67,7 @@ int main(int argc, char** argv)
 				print_usage();
 				return -1;
 			}
-			remove(argv[2]);
+			remove(inventory, argv[2]);
 			break;
 		case 'w':	// write to file
 			if (argc != 2)
@@ -87,26 +87,25 @@ int main(int argc, char** argv)
 			std::cout << "LOOP MODE" << std::endl;
 			while (1)
 			{
-				char command ;
+				char command;
 				std::cin >> command;
 				if (command != 'q')
 				{
-					// TODO: break down command 
-					//char mode;
-					std::string test_string = "test";
+					// TODO: break down command so it can use args 
+					std::string test_string = "name2";
 					switch (command)
 					{
 						case 'a':
-							add(test_string, 3);
+							add(inventory, test_string, 3);
 							break;
 						case 's':
-							subtract(test_string, 3);
+							subtract(inventory, test_string, 3);
 							break;
 						case 'd':
 							display(inventory);
 							break;
 						case 'r':	
-							remove(test_string);
+							remove(inventory, test_string);
 							break;
 						case 'w':
 							save(file_path, inventory);
@@ -130,19 +129,35 @@ int main(int argc, char** argv)
 	return 0;
 }
 
-void add(std::string name, int amount)
+void add(std::vector<Item> &inventory, std::string name, int amount)
 {
 	std::cout << "ADD " << amount << " TO " << name << std::endl;
-	// TODO: implement adding items
+	// TODO: despite being a reference the vector does not save changes from add() or subtract(), remove() works though
+	// for each item in vector, check if its [name]
+	// if so increase by [amount]
+	for (Item item : inventory)
+	{
+		if (item.name == name)
+		{
+			item.amount += amount;
+		}
+	}
 }
 
-void subtract(std::string name, int amount)
+void subtract(std::vector<Item> &inventory, std::string name, int amount)
 {
 	std::cout << "SUBTRACT " << amount << " FROM " << name << std::endl;
 	// TODO: implement subtracting items
+	for (Item item : inventory)
+	{
+		if (item.name == name)
+		{
+			item.amount -= amount;
+		}
+	}
 }
 
-void display(std::vector<Item> inventory)
+void display(std::vector<Item> &inventory)
 {
 	std::cout << "DISPLAY" << std::endl;
 	for (Item item : inventory)
@@ -152,10 +167,18 @@ void display(std::vector<Item> inventory)
 	}
 }
 
-void remove(std::string name)
+void remove(std::vector<Item> &inventory, std::string name)
 {
 	std::cout << "REMOVE " << name << std::endl;
-	// TODO: implement removing items
+	int i = 0;
+	for (Item item : inventory)
+	{
+		if (item.name == name)
+		{
+			inventory.erase(inventory.begin() + i);
+		}
+		i++;
+	}
 }
 
 void save(std::string file_path, std::vector<Item> inventory)
