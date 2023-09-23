@@ -135,12 +135,14 @@ void add(std::vector<Item> &inventory, std::string name, int amount)
 	// TODO: despite being a reference the vector does not save changes from add() or subtract(), remove() works though
 	// for each item in vector, check if its [name]
 	// if so increase by [amount]
+	int i = 0;
 	for (Item item : inventory)
 	{
 		if (item.name == name)
 		{
-			item.amount += amount;
+			inventory[i].amount += amount;
 		}
+		i++;
 	}
 }
 
@@ -148,12 +150,14 @@ void subtract(std::vector<Item> &inventory, std::string name, int amount)
 {
 	std::cout << "SUBTRACT " << amount << " FROM " << name << std::endl;
 	// TODO: implement subtracting items
+	int i = 0;
 	for (Item item : inventory)
 	{
 		if (item.name == name)
 		{
-			item.amount -= amount;
+			inventory[i].amount -= amount;
 		}
+		i++;
 	}
 }
 
