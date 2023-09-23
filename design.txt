@@ -18,7 +18,7 @@ command line tool to update item amounts / get information
 				used in: recipe name
 
 
-Run:
+Run: (scrapped)
 opens / creates csv file
 loads contents into structs
 enters command switch structure

@@ -35,6 +35,7 @@ int main(int argc, char** argv)
 	}
 	save(file_path, inventory);
 	// determine which mode to enter for this run
+	// TODO: probably get rid of this in favor of the loop
 	switch (argv[1][0])
 	{
 		case 'a':	// add
@@ -92,7 +93,7 @@ int main(int argc, char** argv)
 				if (command != 'q')
 				{
 					// TODO: break down command so it can use args 
-					std::string test_string = "name2";
+					std::string test_string = "name4";
 					switch (command)
 					{
 						case 'a':
@@ -109,6 +110,9 @@ int main(int argc, char** argv)
 							break;
 						case 'w':
 							save(file_path, inventory);
+							break;
+						case 'i':
+							insert(inventory, test_string, 3);
 							break;
 						default: 
 							print_usage();
@@ -132,7 +136,6 @@ int main(int argc, char** argv)
 void add(std::vector<Item> &inventory, std::string name, int amount)
 {
 	std::cout << "ADD " << amount << " TO " << name << std::endl;
-	// TODO: despite being a reference the vector does not save changes from add() or subtract(), remove() works though
 	// for each item in vector, check if its [name]
 	// if so increase by [amount]
 	int i = 0;
@@ -144,12 +147,12 @@ void add(std::vector<Item> &inventory, std::string name, int amount)
 		}
 		i++;
 	}
+
 }
 
 void subtract(std::vector<Item> &inventory, std::string name, int amount)
 {
 	std::cout << "SUBTRACT " << amount << " FROM " << name << std::endl;
-	// TODO: implement subtracting items
 	int i = 0;
 	for (Item item : inventory)
 	{
@@ -183,6 +186,24 @@ void remove(std::vector<Item> &inventory, std::string name)
 		}
 		i++;
 	}
+}
+
+int insert(std::vector<Item> &inventory, std::string name, int amount)
+{
+	std::cout << "INSERT " << amount << " " << name << std::endl;
+	for (Item item : inventory)
+	{
+		if (item.name == name)
+		{
+			std::cerr << name << " ALREADY EXISTS" << std::endl;
+			return -1;
+		}
+	}
+	Item new_item;
+	new_item.name = name;
+	new_item.amount = amount;
+	inventory.push_back(new_item);
+	return 1;
 }
 
 void save(std::string file_path, std::vector<Item> inventory)
