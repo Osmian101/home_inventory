@@ -36,56 +36,56 @@ int main(int argc, char** argv)
 	save(file_path, inventory);
 	// determine which mode to enter for this run
 	// TODO: probably get rid of this in favor of the loop
-	switch (argv[1][0])
-	{
-		case 'a':	// add
-			if (argc != 4)
-			{
-				print_usage();
-				return -1;
-			}
-			add(inventory, argv[2], atoi(argv[3]));
-			break;
-		case 's':	// subtract
-			if (argc != 4)
-			{ 
-				print_usage();
-				return -1;
-			}
-			subtract(inventory, argv[2], atoi(argv[3]));
-			break;
-		case 'd':	// display items
-			if (argc != 2)
-			{ 
-				print_usage();	
-				return -1;
-			}
-			display(inventory);
-			break;
-		case 'r':	// remove item
-			if (argc != 3)
-			{ 
-				print_usage();
-				return -1;
-			}
-			remove(inventory, argv[2]);
-			break;
-		case 'w':	// write to file
-			if (argc != 2)
-			{
-				print_usage();
-				return -1;
-			}
-			std::cout << "WRITE TO " << file_path << std::endl;
-			save(file_path, inventory);
-			break;
-		case 'l':	// launch in loop mode
-			if (argc != 2)
-			{
-				print_usage();
-				return -1;
-			}
-			std::cout << "LOOP MODE" << std::endl;
+//	switch (argv[1][0])
+//	{
+//		case 'a':	// add
+//			if (argc != 4)
+//			{
+//				print_usage();
+//				return -1;
+//			}
+//			add(inventory, argv[2], atoi(argv[3]));
+//			break;
+//		case 's':	// subtract
+//			if (argc != 4)
+//			{ 
+//				print_usage();
+//				return -1;
+//			}
+//			subtract(inventory, argv[2], atoi(argv[3]));
+//			break;
+//		case 'd':	// display items
+//			if (argc != 2)
+//			{ 
+//				print_usage();	
+//				return -1;
+//			}
+//			display(inventory);
+//			break;
+//		case 'r':	// remove item
+//			if (argc != 3)
+//			{ 
+//				print_usage();
+//				return -1;
+//			}
+//			remove(inventory, argv[2]);
+//			break;
+//		case 'w':	// write to file
+//			if (argc != 2)
+//			{
+//				print_usage();
+//				return -1;
+//			}
+//			std::cout << "WRITE TO " << file_path << std::endl;
+//			save(file_path, inventory);
+//			break;
+//		case 'l':	// launch in loop mode
+//			if (argc != 2)
+//			{
+//				print_usage();
+//				return -1;
+//			}
+//			std::cout << "LOOP MODE" << std::endl;
 			while (1)
 			{
 				char command;
@@ -94,6 +94,7 @@ int main(int argc, char** argv)
 				{
 					// TODO: break down command so it can use args 
 					std::string test_string = "name4";
+					std::cout << command << std::endl;
 					switch (command)
 					{
 						case 'a':
@@ -127,8 +128,8 @@ int main(int argc, char** argv)
 					return -1;
 
 				}
-			}
-		break;
+//			}
+//		break;
 	}
 	return 0;
 }
@@ -222,5 +223,5 @@ void save(std::string file_path, std::vector<Item> inventory)
 
 void print_usage()
 {
-	std::cerr << "USAGE: inv [a,s,d,r,w,q,h] [optional args]" << std::endl;
+	std::cerr << "USAGE: inv [a,s,d,r,w,q,h,i] [optional args]" << std::endl;
 }
