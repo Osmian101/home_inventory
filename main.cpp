@@ -34,102 +34,47 @@ int main(int argc, char** argv)
 		file_in.close();
 	}
 	save(file_path, inventory);
-	// determine which mode to enter for this run
-	// TODO: probably get rid of this in favor of the loop
-//	switch (argv[1][0])
-//	{
-//		case 'a':	// add
-//			if (argc != 4)
-//			{
-//				print_usage();
-//				return -1;
-//			}
-//			add(inventory, argv[2], atoi(argv[3]));
-//			break;
-//		case 's':	// subtract
-//			if (argc != 4)
-//			{ 
-//				print_usage();
-//				return -1;
-//			}
-//			subtract(inventory, argv[2], atoi(argv[3]));
-//			break;
-//		case 'd':	// display items
-//			if (argc != 2)
-//			{ 
-//				print_usage();	
-//				return -1;
-//			}
-//			display(inventory);
-//			break;
-//		case 'r':	// remove item
-//			if (argc != 3)
-//			{ 
-//				print_usage();
-//				return -1;
-//			}
-//			remove(inventory, argv[2]);
-//			break;
-//		case 'w':	// write to file
-//			if (argc != 2)
-//			{
-//				print_usage();
-//				return -1;
-//			}
-//			std::cout << "WRITE TO " << file_path << std::endl;
-//			save(file_path, inventory);
-//			break;
-//		case 'l':	// launch in loop mode
-//			if (argc != 2)
-//			{
-//				print_usage();
-//				return -1;
-//			}
-//			std::cout << "LOOP MODE" << std::endl;
-			while (1)
+	while (1)
+	{
+		char command;
+		std::cin >> command;
+		if (command != 'q')
+		{
+			// TODO: break down command so it can use args 
+			std::string test_string = "name4";
+			std::cout << command << std::endl;
+			switch (command)
 			{
-				char command;
-				std::cin >> command;
-				if (command != 'q')
-				{
-					// TODO: break down command so it can use args 
-					std::string test_string = "name4";
-					std::cout << command << std::endl;
-					switch (command)
-					{
-						case 'a':
-							add(inventory, test_string, 3);
-							break;
-						case 's':
-							subtract(inventory, test_string, 3);
-							break;
-						case 'd':
-							display(inventory);
-							break;
-						case 'r':	
-							remove(inventory, test_string);
-							break;
-						case 'w':
-							save(file_path, inventory);
-							break;
-						case 'i':
-							insert(inventory, test_string, 3);
-							break;
-						default: 
-							print_usage();
-							break;
-						break;
-					}
-				}
-				else 
-				{
-					//quit();
-					std::cout << "QUIT" << std::endl;
-					return -1;
-
-				}
-//			}
-//		break;
+				case 'a':
+					add(inventory, test_string, 3);
+					break;
+				case 's':
+					subtract(inventory, test_string, 3);
+					break;
+				case 'd':
+					display(inventory);
+					break;
+				case 'r':	
+					remove(inventory, test_string);
+					break;
+				case 'w':
+					save(file_path, inventory);
+					break;
+				case 'i':
+					insert(inventory, test_string, 3);
+					break;
+				default: 
+					print_usage();
+					break;
+				break;
+			}
+		}
+		else 
+		{
+			//quit();
+			std::cout << "QUIT" << std::endl;
+			return -1;
+		}
 	}
 	return 0;
 }
@@ -219,6 +164,12 @@ void save(std::string file_path, std::vector<Item> inventory)
 		}
 		file_out.close();
 	}
+}
+
+void load(std::string file_path, std::vector<Item> inventory)
+{
+	std::ifstream file_in;
+	file_in.open(file_path);
 }
 
 void print_usage()
