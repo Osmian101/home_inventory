@@ -7,33 +7,10 @@
 
 int main(int argc, char** argv)
 {	
-	// TODO: break into load_from_file()
 	std::vector<Item> inventory;
 	std::string file_path = "inventory.csv";
-	std::ifstream file_in;
-	file_in.open(file_path);
-	int num_lines = 0;
-	if (file_in.is_open())
-	{
-		// count number of lines in the file
-		for (std::string line; std::getline(file_in, line);)
-		{
-			num_lines++;
-		}
-		int i = 0;
-		file_in.close();	// close and reopen the file to reset the reader position (TODO: functions for this?)
-		file_in.open(file_path);
-		// read each line into a new Item struct and store it in the inventory vector
-		while (i < num_lines)
-		{
-			Item temp;
-			file_in >> temp.name >> temp.amount;
-			inventory.push_back(temp);
-			i++;
-		}
-		file_in.close();
-	}
-	save(file_path, inventory);
+	// load inventory.csv into a vector of Items
+	load(file_path, inventory);
 	while (1)
 	{
 		char command;
@@ -71,7 +48,6 @@ int main(int argc, char** argv)
 		}
 		else 
 		{
-			//quit();
 			std::cout << "QUIT" << std::endl;
 			return -1;
 		}
@@ -166,10 +142,31 @@ void save(std::string file_path, std::vector<Item> inventory)
 	}
 }
 
-void load(std::string file_path, std::vector<Item> inventory)
+void load(std::string file_path, std::vector<Item> &inventory)
 {
 	std::ifstream file_in;
 	file_in.open(file_path);
+	int num_lines = 0;
+	if (file_in.is_open())
+	{
+		// count number of lines in the file
+		for (std::string line; std::getline(file_in, line);)
+		{
+			num_lines++;
+		}
+		int i = 0;
+		file_in.close();	// close and reopen the file to reset the reader position (TODO: functions for this?)
+		file_in.open(file_path);
+		// read each line into a new Item struct and store it in the inventory vector
+		while (i < num_lines)
+		{
+			Item temp;
+			file_in >> temp.name >> temp.amount;
+			inventory.push_back(temp);
+			i++;
+		}
+		file_in.close();
+	}
 }
 
 void print_usage()

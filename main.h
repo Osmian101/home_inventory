@@ -24,6 +24,8 @@ void save(std::string file_path, std::vector<Item> inventory);
 
 int insert(std::vector<Item> &inventory, std::string name, int amount);
 
+void load(std::string file_path, std::vector<Item> &inventory);
+
 void print_usage();
 
 #endif
